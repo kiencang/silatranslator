@@ -1,0 +1,759 @@
+body {
+    font-family: 'Be Vietnam Pro', 'Roboto', sans-serif;
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0px;
+    padding: 20px 0px;
+    color: #333;
+    line-height: 1.4;
+    box-sizing: border-box; /* Nên có để padding không làm tăng kích thước tổng */
+}
+
+button {
+    font-family: 'Be Vietnam Pro', 'Roboto', sans-serif;
+}
+
+.translator-container {
+    background-color: #ffffff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 700px;
+}
+
+h1 {
+    color: #555;
+    margin-bottom: 10px;
+    font-size: 2em;
+}
+
+p {
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #777;
+}
+
+.input-group input[type="url"] {
+    width: calc(100% - 22px); /* Adjust for padding */
+    padding: 12px 10px;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    font-family: 'Be Vietnam Pro', 'Roboto', sans-serif;
+}
+
+.input-group input[type="url"]:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+/* background: linear-gradient(135deg, #3498db, #2980b9); */
+button#translate-button {
+    background: linear-gradient(135deg, #999, #777);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 5px; /* Rounded corners */
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px; /* Ensure minimum width */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Đảo lại màu */
+button#translate-button:hover {
+    background: linear-gradient(135deg, #777, #999);
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+button#translate-button:active {
+    transform: translateY(0); /* Return to original position on click */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+button#translate-button .button-text {
+    margin-right: 5px;
+}
+
+/* Simple Spinner CSS */
+.spinner {
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 3px solid #ffffff;
+    width: 18px;
+    height: 18px;
+    animation: spin 1s linear infinite;
+    margin-left: 10px; /* Space between text and spinner */
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#status-area {
+    margin-top: 27px;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 50px; /* Ensure space even when empty */
+    text-align: left;
+    line-height: 1.6;
+    word-wrap: break-word; /* Wrap long messages/paths */
+    border: 1px solid transparent; /* Base border */
+}
+
+#status-area .loading {
+    color: #2980b9;
+    background-color: #eaf2f8;
+    border-color: #aed6f1;
+    padding: 10px;
+}
+
+#status-area .error {
+    background-color: #fbeaea;
+    color: #c0392b;
+    border-color: #e74c3c; /* Match border to background intensity */
+    padding: 15px;
+}
+
+#status-area .success {
+    background-color: #f7f7f7;
+    color: #555;
+    border-color: #ddd;
+    padding: 20px 10px 5px 10px;    
+}
+
+#status-area a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+#status-area a:hover {
+    text-decoration: underline;
+}
+
+#status-area code { /* Style the file path */
+    background-color: #ecf0f1;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+    color: #555;
+}
+
+#translated-link-button {
+    display: block; /* Hoặc 'block' nếu bạn muốn nút chiếm toàn bộ chiều rộng */
+    width: fit-content; /* Để nút chỉ rộng bằng nội dung */
+    margin: 10px auto; /* Căn giữa ngang (trên/dưới: 10px, trái/phải: auto) */
+    padding: 12px 24px; /* Khoảng cách bên trong nút (trên/dưới, trái/phải) */
+    background-color: #007bff; /* Màu nền của nút (màu xanh dương) */
+    color: white; /* Màu chữ trên nút */
+    text-decoration: none; /* Loại bỏ gạch chân mặc định của thẻ <a> */
+    border: none; /* Loại bỏ viền mặc định */
+    border-radius: 5px; /* Bo tròn góc nút */
+    font-size: 16px; /* Kích thước chữ */
+    font-weight: bold; /* In đậm chữ */
+    cursor: pointer; /* Thay đổi con trỏ chuột khi di chuột qua nút */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng nhẹ */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển đổi màu nền mượt mà khi hover */
+}
+
+#translated-link-button:hover {
+    background-color: #0056b3; /* Màu nền đậm hơn khi di chuột qua */
+}
+
+#translated-link-button:focus {
+    outline: none; /* Loại bỏ viền focus mặc định của trình duyệt */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Thêm viền focus tùy chỉnh */
+}
+
+/* CSS cho các trang mới dịch gần đây */
+.recent-translations {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.recent-translations ul {
+    list-style-type: none; /* Bỏ dấu chấm đầu dòng mặc định */
+    padding-left: 0; /* Bỏ padding trái mặc định của ul */
+}
+
+.recent-translations li {
+    border-bottom: 1px solid #eee; /* Đường viền dưới màu xám nhạt */
+    padding-bottom: 10px; /* Khoảng đệm dưới trước đường viền */
+    margin-bottom: 10px; /* Khoảng cách dưới sau đường viền */
+}
+
+/* Loại bỏ đường viền và margin của mục cuối cùng để không thừa */
+.recent-translations li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.recent-translations a {
+    text-decoration: none; /* Bỏ gạch chân link */
+    color: #0056b3; /* Màu link chính */
+    font-weight: 500; /* Đậm hơn một chút */
+}
+
+.recent-translations a:hover {
+    text-decoration: underline; /* Thêm gạch chân khi hover */
+}
+
+.recent-translations .translation-meta {
+    font-size: 0.85em;
+    color: #666;
+    margin-top: 3px; /* Tăng nhẹ khoảng cách với link trên */
+    padding-left: 5px; /* Thụt lề nhẹ thông tin phụ */
+}
+
+.recent-translations .translation-meta span + span::before {
+    content: "|"; /* Thêm dấu | ngăn cách các span */
+    margin: 0 8px; /* Khoảng cách quanh dấu | */
+    color: #ccc;  /* Màu nhạt cho dấu | */
+}
+
+.recent-translations .folder-info {
+    font-size: 0.8em;
+    color: #666;
+    margin-top: 15px; /* Khoảng cách với danh sách */
+}
+
+.centered-label {
+    display: block; /* Chuyển label thành block để nó chiếm toàn bộ chiều rộng */
+    text-align: center; /* Căn giữa nội dung text bên trong label */
+    margin-bottom: 8px; /* Tùy chọn: Thêm chút khoảng cách dưới label */
+}
+
+/* CSS chung cho dòng ghi công */
+.attribution_img_bg {
+    font-size: 0.8em; /* Kích thước chữ nhỏ hơn */
+    color: #888; /* Màu chữ nhạt hơn để không quá nổi bật */
+    position: fixed; /* Giữ vị trí cố định trên màn hình */
+    bottom: 10px; /* Cách đáy màn hình 10px */
+    left: 10px; /* Cách lề trái màn hình 10px */
+    z-index: 1000; /* Đảm bảo nó hiển thị trên các phần tử khác */
+}
+
+/* Phần thông báo chưa nhập API KEY */
+#none_API_KEY {
+    background-color: #fce4ec; /* Màu hồng nhạt */
+    border: 1px solid #f48fb1; /* Viền hồng nhạt */
+    color: #d81b60; /* Chữ màu hồng đậm */
+    padding: 15px;
+    margin-bottom: 10px; /* Tạo khoảng cách với các phần tử khác */
+    border-radius: 5px; /* Bo tròn góc */
+}
+
+#none_API_KEY a {
+    color: #1976d2; /* Màu xanh dương cho link */
+    font-weight: bold; /* In đậm link */
+    text-decoration: none; /* Loại bỏ gạch chân mặc định */
+}
+
+#none_API_KEY a:hover {
+    text-decoration: underline; /* Thêm gạch chân khi di chuột qua */
+}
+
+/* Ảnh demo địa chỉ web là gì */
+.error img {
+    display: block; /* Chuyển ảnh thành block-level element để có thể áp dụng margin */
+    margin-left: auto;
+    margin-right: auto; /* Căn giữa ảnh theo chiều ngang */
+    margin-top: 10px;
+    max-width: 100%; /* Đảm bảo ảnh không vượt quá chiều rộng của container cha */
+    height: auto; /* Duy trì tỷ lệ khung hình của ảnh khi chiều rộng thay đổi */
+}
+
+/* Phần thông báo kết quả thành công */
+.success {
+    /* Các thuộc tính CSS hiện có của bạn (ví dụ) */
+    display: block;
+    background-color: #e6fffa; /* Màu xanh lá cây nhạt */
+    border: 1px solid #81c784; /* Viền xanh lá cây */
+    color: #388e3c; /* Chữ màu xanh lá cây đậm */
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    text-align: center; /* Căn giữa toàn bộ nội dung */
+}
+
+.success strong {
+    font-weight: bold; /* Đảm bảo thời gian xử lý được in đậm */
+    color: #555; /* Màu xám đậm hơn cho phần in đậm */
+}
+
+.success br {
+    margin-bottom: 5px; /* Tạo khoảng cách nhỏ giữa các dòng */
+}
+
+.success a#translated-link-button {
+    display: inline-block; /* Hiển thị như một khối nhưng nằm trên cùng dòng */
+    background-color: #1976d2; /* Màu xanh dương cho button */
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: -5px; /* Tạo khoảng cách với dòng trên */
+}
+
+.success a#translated-link-button:hover {
+    background-color: #1565c0;
+}
+
+.success p {
+    font-size: 0.8em;
+    margin-top: 10px;
+    color: #666;
+    text-align: center;
+}
+
+/* CSS để đặt các tùy chọn chế độ dịch trên cùng một dòng */
+#translation-mode-options {
+    /* Đảm bảo text-align: center vẫn được áp dụng nếu bạn xóa nó khỏi inline style */
+    text-align: center;
+    /* Có thể thêm margin-bottom ở đây thay vì inline */
+    margin-bottom: 20px; /* Điều chỉnh nếu cần */
+}
+
+#translation-mode-options label {
+    display: inline-flex;   /* << THAY ĐỔI: Sử dụng Flexbox */
+    align-items: center;    /* << THÊM VÀO: Căn giữa các item con theo chiều dọc */
+    margin-bottom: 0;     /* Ghi đè margin-bottom mặc định của .input-group label */
+    margin-right: 15px;   /* Điều chỉnh khoảng cách giữa các tùy chọn */
+    /* Giữ các style bạn đã đặt inline nếu muốn */
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* Loại bỏ margin-right cho label cuối cùng để căn đều hơn (tùy chọn) */
+#translation-mode-options label:last-child {
+    margin-right: 0;
+}
+
+/* Đảm bảo radio button thẳng hàng với text */
+#translation-mode-options input[type="radio"] {
+    margin-right: 4px; /* Giữ nguyên hoặc điều chỉnh */
+}
+
+/* Màu bút chì cho radio button */
+input[type="radio"] {
+    accent-color: #777; /* Màu xám bút chì */
+}
+
+
+/* --- CSS cho Biểu tượng Thông tin và Tooltip --- */
+/* Định dạng biểu tượng chữ 'i' */
+.info-icon {
+    display: inline-block; /* Để có thể đặt kích thước và margin */
+    margin-left: 5px;      /* Khoảng cách với chữ bên trái */
+    width: 12px;           /* Chiều rộng của vòng tròn */
+    height: 12px;          /* Chiều cao của vòng tròn */
+    line-height: 14px;     /* Căn chữ 'i' vào giữa theo chiều dọc */
+    text-align: center;    /* Căn chữ 'i' vào giữa theo chiều ngang */
+    font-size: 6px;       /* Kích thước chữ 'i' dấu ? */
+    font-weight: bold;     /* Cho chữ 'i' đậm hơn */
+    color: #fff;           /* Màu chữ 'i' (trắng) */
+    background-color: #7f8c8d; /* Màu nền vòng tròn (xám) */
+    border-radius: 50%;    /* Biến thành hình tròn */
+    cursor: help;          /* Đổi con trỏ chuột thành dấu hỏi (?) */
+    position: relative;    /* Cần thiết để định vị tooltip con */
+    vertical-align: middle;/* Căn chỉnh với text xung quanh */
+}
+
+/* Định dạng Tooltip (hiện khi hover vào .info-icon) */
+.info-icon::after { /* Sử dụng pseudo-element ::after để tạo tooltip */
+    content: attr(data-tooltip); /* Lấy nội dung từ thuộc tính data-tooltip */
+    position: absolute;         /* Định vị tuyệt đối so với .info-icon */
+    bottom: 120%;               /* Đặt tooltip phía trên biểu tượng (cách 20% chiều cao của icon) */
+    left: 50%;                  /* Căn giữa tooltip theo chiều ngang */
+    transform: translateX(-50%); /* Dịch chuyển tooltip sang trái 50% chiều rộng của chính nó để căn giữa hoàn hảo */
+
+    /* === THAY ĐỔI Ở ĐÂY === */
+    white-space: normal;      /* Giữ nguyên: Cho phép xuống dòng */
+    /* max-width: 280px; */       /* << XÓA HOẶC COMMENT DÒNG NÀY */
+    width: 250px;             /* << THÊM VÀO: Đặt chiều rộng CỐ ĐỊNH */
+    text-align: left;         /* Giữ nguyên: Căn lề trái */
+    /* ======================= */
+
+    background-color: rgba(0, 0, 0, 0.8); /* Màu nền tooltip (đen mờ) */
+    color: #fff;                /* Màu chữ tooltip (trắng) */
+    padding: 8px 12px;          /* Khoảng đệm bên trong tooltip */
+    border-radius: 4px;         /* Bo tròn góc tooltip */
+    font-size: 12px;            /* Kích thước chữ tooltip */
+    font-weight: normal;        /* Đảm bảo chữ tooltip không bị ảnh hưởng bởi bold của icon */
+    z-index: 10;                /* Đảm bảo tooltip hiển thị trên các phần tử khác */
+
+    /* Hiệu ứng ẩn/hiện */
+    visibility: hidden;         /* Mặc định ẩn */
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Hiệu ứng mờ dần */
+}
+
+/* Hiển thị tooltip khi hover vào .info-icon */
+.info-icon:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* (Tùy chọn) Thêm mũi tên nhỏ cho tooltip */
+.info-icon::before {
+    content: '';
+    position: absolute;
+    bottom: calc(120% - 5px); /* Vị trí mũi tên ngay dưới tooltip */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent; /* Chỉ tô màu viền trên */
+    z-index: 11; /* Phải cao hơn ::after một chút nếu có */
+
+    /* Hiệu ứng ẩn/hiện cùng với tooltip */
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.info-icon:hover::before {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* --- CSS cho Nút Tiện Ích Phụ --- */
+.utility-buttons {
+    display: flex;          /* Sắp xếp các nút con theo hàng ngang */
+    justify-content: center;/* Căn giữa các nút trong container */
+    gap: 15px;              /* Khoảng cách giữa các nút */
+    margin-top: 25px;       /* Khoảng cách với nội dung phía trên */
+    padding-top: 15px;      /* Khoảng đệm phía trên */
+    border-top: 1px solid #eee; /* Đường kẻ mờ phân tách nhẹ */
+    flex-wrap: wrap;        /* Cho phép xuống dòng nếu không đủ chỗ */
+}
+
+.utility-button {
+    display: inline-block; /* Cho phép đặt padding và giữ trên một dòng */
+    padding: 6px 14px;     /* Khoảng đệm bên trong nút (nhỏ hơn nút chính) */
+    border: 1px solid #dcdcdc; /* Viền màu xám nhạt */
+    background-color: #f8f8f8; /* Nền trắng hơi xám */
+    color: #777;        /* Màu chữ xám nhạt */
+    text-decoration: none; /* Bỏ gạch chân link */
+    border-radius: 4px;    /* Bo góc nhẹ */
+    font-size: 0.85em;     /* Cỡ chữ nhỏ hơn một chút */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; /* Hiệu ứng chuyển đổi mượt */
+    cursor: pointer;
+}
+
+.utility-button:hover {
+    background-color: #eee; /* Nền đậm hơn khi hover */
+    border-color: #bbb; /* Viền đậm hơn khi hover */
+    color: #333;        /* Chữ đậm hơn khi hover */
+}
+
+.utility-button:active {
+    background-color: #ddd; /* Nền khi nhấn nút */
+    border-color: #bbb;
+}
+
+/* --- Styling cho phần Logo và Tên App --- */
+.nameApp {
+    display: flex; /* Sắp xếp logo và text trên cùng một hàng */
+    align-items: center; /* Căn giữa logo và text theo chiều dọc */
+    padding: 5px 7px; /* Tăng khoảng đệm bên trong (trên/dưới 10px, trái/phải 15px) */
+    border-radius: 5px; /* Bo góc nhẹ cho mềm mại */
+    margin-bottom: 15px; /* Tăng khoảng cách với tiêu đề H1 bên dưới */
+    gap: 10px; /* Tạo khoảng cách 10px giữa logo và text */
+    width: fit-content; /* Làm cho nền chỉ rộng bằng nội dung (logo + text + padding + gap) */
+    /* Nếu bạn muốn nó chiếm toàn bộ chiều rộng container, hãy xóa dòng 'width: fit-content;' */
+    /* Hoặc nếu muốn nó luôn ở góc trên bên trái, không cần thay đổi gì thêm */
+}
+
+.nameApp img {
+    height: 16px; /* Đặt chiều cao cố định cho logo, trình duyệt sẽ tự chỉnh chiều rộng */
+    width: auto; /* Đảm bảo tỉ lệ ảnh không bị méo */
+    display: block; /* Loại bỏ khoảng trống thừa có thể xuất hiện dưới ảnh */
+}
+
+.nameApp span#titleST { /* Sử dụng ID #title để tăng độ ưu tiên nếu cần */
+    font-size: 0.9em; /* Tăng kích thước chữ cho tên app */
+    font-weight: bold; /* In đậm tên app */
+    color: #555; /* Màu chữ tối hơn một chút */
+    /* Không cần vertical-align vì align-items trên .nameApp đã xử lý */
+}
+
+/* --- (Tùy chọn) Nếu bạn muốn hiệu ứng hover nhẹ --- */
+.nameApp:hover {
+    background-color: #e5e5e5; /* Đổi màu nền nhẹ khi di chuột qua */
+}
+
+/* === Kiểu cho Thanh Bên Trái Cố Định === */
+#sticky-left-sidebar {
+    position: fixed; /* Quan trọng: Giữ cố định trên màn hình */
+    right: 0;         /* Đặt ở cạnh tráiสุด */
+    top: 50%;        /* Bắt đầu từ giữa chiều cao màn hình */
+    transform: translateY(-50%); /* Căn giữa theo chiều dọc chính xác */
+    width: 55px;     /* Chiều rộng của thanh bên */
+    background-color: rgba(200, 200, 200, 0.5); /* Màu nền hơi mờ (tùy chỉnh) */
+    padding: 10px 0;  /* Đệm trên dưới, không đệm trái phải */
+    border-radius: 0 8px 8px 0; /* Bo tròn góc phải */
+    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15); /* Đổ bóng nhẹ bên phải */
+    z-index: 999;   /* Đảm bảo nó nằm trên các phần tử khác (trừ modal/popup) */
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu nền */
+}
+
+#sticky-left-sidebar:hover {
+    background-color: rgba(222, 226, 230, 0.8); /* Đổi màu nền khi di chuột qua */
+}
+
+#sticky-left-sidebar ul {
+    list-style: none; /* Bỏ dấu chấm đầu dòng */
+    padding: 0;
+    margin: 0;
+    display: flex;          /* Sắp xếp các nút theo chiều dọc */
+    flex-direction: column; /* Hướng dọc */
+    align-items: center;   /* Căn giữa các nút theo chiều ngang */
+}
+
+#sticky-left-sidebar li {
+    margin-bottom: 10px; /* Khoảng cách giữa các nút */
+}
+
+#sticky-left-sidebar li:last-child {
+    margin-bottom: 0; /* Bỏ khoảng cách cho nút cuối cùng */
+}
+
+#sticky-left-sidebar a {
+    display: flex;          /* Sử dụng flexbox để căn giữa icon/text */
+    justify-content: center; /* Căn giữa nội dung theo chiều ngang */
+    align-items: center;   /* Căn giữa nội dung theo chiều dọc */
+    width: 40px;            /* Chiều rộng nút */
+    height: 40px;           /* Chiều cao nút */
+    background-color: #ffffff; /* Màu nền nút */
+    color: #495057;          /* Màu icon/text */
+    text-decoration: none;  /* Bỏ gạch chân link */
+    font-size: 1.2em;        /* Kích thước icon/text (điều chỉnh nếu dùng icon font) */
+    border-radius: 50%;    /* Làm cho nút tròn */
+    border: 1px solid #dee2e6; /* Viền nhẹ cho nút */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Bóng đổ nhẹ cho nút */
+    transition: all 0.2s ease-in-out; /* Hiệu ứng chuyển đổi mượt mà */
+}
+
+#sticky-left-sidebar a:hover {
+    background-color: #e9ecef; /* Màu nền khi di chuột */
+    color: #212529;          /* Màu icon/text khi di chuột */
+    transform: scale(1.1);   /* Phóng to nhẹ khi di chuột */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tăng bóng đổ khi di chuột */
+}
+
+#sticky-left-sidebar a:active {
+    transform: scale(1.05); /* Thu nhỏ lại một chút khi nhấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Giảm bóng đổ khi nhấn */
+}
+
+/* Tùy chọn: Ẩn thanh bên trên màn hình nhỏ nếu nó gây vướng */
+@media (max-width: 850px) {
+    #sticky-left-sidebar {
+        display: none; /* Ẩn đi */
+    }
+}
+
+/* === HẾT Kiểu cho Thanh Bên Trái Cố Định === */
+
+/* === CSS CHO PHẦN TIN TỨC ẨN/HIỆN === */
+#google-news-container {
+    display: none; /* Ẩn box tin tức mặc định */
+    margin-top: 20px; /* Khoảng cách phía trên khi hiện ra */
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Định dạng cho nút/link kích hoạt */
+.toggle-news-button {
+    display: block; /* Chiếm cả dòng để dễ căn giữa */
+    width: fit-content; /* Độ rộng vừa với nội dung */
+    margin: 25px auto 10px auto; /* Căn giữa và tạo khoảng cách */
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #777;
+    background-color: transparent; /* Nền trong suốt */
+    border: none; /* Bỏ viền */
+    /* border-bottom: 1px dashed #0066cc;  Có thể thêm gạch chân nếu muốn */
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.2s ease;
+}
+
+.toggle-news-button:hover {
+    color: #0066cc;
+    /* border-bottom-style: solid; */
+}
+
+#google-news-container {
+    margin: 20px 0px;
+    background: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+#google-news-container h2 {
+    color: #333;
+    font-size: 1.2em;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    text-align: center; /* Căn giữa tiêu đề */
+}
+
+#google-news-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+#google-news-container li {
+    margin-bottom: 20px; /* Giảm khoảng cách một chút */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee; /* Làm đường kẻ mảnh hơn */
+}
+
+#google-news-container li:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#google-news-container li a.news-title { /* Thêm class để dễ style */
+    text-decoration: none;
+    color: #0066cc;
+    font-weight: bold;
+    font-size: 1.1em;
+    display: block; /* Cho tiêu đề chiếm cả dòng */
+    margin-bottom: 5px; /* Khoảng cách giữa tiêu đề và mô tả */
+}
+
+#google-news-container li a.news-title:hover {
+    text-decoration: underline;
+    color: #004c99; /* Đổi màu khi hover */
+}
+
+#google-news-container li p.news-description { /* Thêm class */
+    margin-top: 0; /* Bỏ margin top mặc định của p */
+    color: #555;
+    font-size: 0.9em; /* Giảm kích thước font mô tả */
+    line-height: 1.5;
+}
+
+#google-news-container li p.news-meta { /* Thêm class cho thông tin meta */
+    margin-top: 8px;
+    color: #888;
+    font-size: 0.85em;
+}
+
+#google-news-container .error {
+    color: red;
+    font-weight: bold;
+    border: 1px solid red;
+    padding: 10px;
+    background-color: #ffecec;
+    border-radius: 4px; /* Bo góc */
+}
+/* === HẾT CSS CHO PHẦN TIN TỨC ẨN/HIỆN === */
+
+#html-input {
+    width: 100%;
+    min-height: 200px; /* Chiều cao tối thiểu */
+    font-family: monospace; /* Font chữ dễ nhìn code */
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    box-sizing: border-box; /* Tính cả padding, border vào width/height */
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+button.toggle-button-mtq {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; /* Làm cho button tròn */
+    border: 1px solid #ccc;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle; /* Căn chỉnh nếu đặt cạnh text */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease; /* Hiệu ứng chuyển màu mượt */
+    /* Bỏ giao diện mặc định của button */
+    background-color: transparent;
+    padding: 0;
+    margin: 0; /* Reset margin */
+    outline: none; /* Bỏ viền focus mặc định */
+}
+
+button.toggle-button-off-mtq {
+    background-color: #999; /* Màu chì */
+}
+
+button.toggle-button-off-mtq:hover {
+    background-color: #777; /* Màu chì thay đổi sắc thái khi hover */
+}
+
+button.toggle-button-on-mtq {
+    background-color: #3498db;
+    /* Hoặc bạn có thể dùng: lightcoral, tomato, salmon */
+}
+
+button.toggle-button-on-mtq:hover {
+    background-color: #2980b9; /* Màu đậm hơn khi hover */
+}
+
+/* Media query cho màn hình có độ rộng trên 1000px */
+@media (min-width: 1001px) {
+    .attribution_img_bg {
+        display: block; /* Hiển thị dòng ghi công khi độ rộng màn hình lớn hơn 1000px */
+    }
+}
+
+/* Ẩn dòng ghi công mặc định (cho màn hình nhỏ hơn hoặc bằng 1000px) */
+@media (max-width: 1000px) {
+    .attribution_img_bg {
+        display: none;
+    }
+}
+
+/* Ẩn background image khi màn hình lớn hơn 2900px */
+@media (min-width: 2901px) {
+    body {
+        background-image: none; /* Loại bỏ background image */
+    }
+}
+

@@ -1,0 +1,130 @@
+/* 
+    Created on : Apr 18, 2025, 11:04:59 PM
+    Author     : Nguyen Duc Anh
+    Target     : Dùng chung một số trang để giao diện thống nhất 
+*/
+body {
+    font-family: "Be Vietnam Pro", 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    box-sizing: border-box; /* Nên có để padding không làm tăng kích thước tổng */
+}
+
+.container {
+    max-width: 690px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    color: #333;
+}
+
+.container h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.2em;
+    margin-top: 10px;
+}
+
+/* Nút chính trên trang */
+button {
+    font-family: "Be Vietnam Pro", 'Roboto', sans-serif;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    margin-right: 10px; /* Khoảng cách giữa các nút */
+}
+
+button[name="save_settings"] {
+    background-color: #007bff; /* Màu xanh lá */
+}
+
+button[name="save_settings"]:hover {
+    background-color: #0056b3;
+}
+
+button[name="reset_settings"] {
+    background-color: #dc3545; /* Màu đỏ */
+}
+
+button[name="reset_settings"]:hover {
+    background-color: #c82333;
+}
+
+/* Nút tiện ích phụ nằm cuối container */
+.utility-buttons {
+    display: flex;          /* Sắp xếp các nút con theo hàng ngang */
+    justify-content: center;/* Căn giữa các nút trong container */
+    gap: 15px;              /* Khoảng cách giữa các nút */
+    margin-top: 25px;       /* Khoảng cách với nội dung phía trên */
+    padding-top: 15px;      /* Khoảng đệm phía trên */
+    border-top: 1px solid #eee; /* Đường kẻ mờ phân tách nhẹ */
+    flex-wrap: wrap;        /* Cho phép xuống dòng nếu không đủ chỗ */
+}
+
+.utility-button {
+    display: inline-block; /* Cho phép đặt padding và giữ trên một dòng */
+    padding: 6px 14px;     /* Khoảng đệm bên trong nút (nhỏ hơn nút chính) */
+    border: 1px solid #dcdcdc; /* Viền màu xám nhạt */
+    background-color: #f8f9fa; /* Nền trắng hơi xám */
+    color: #555;        /* Màu chữ xám đậm */
+    text-decoration: none; /* Bỏ gạch chân link */
+    border-radius: 4px;    /* Bo góc nhẹ */
+    font-size: 0.85em;     /* Cỡ chữ nhỏ hơn một chút */
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; /* Hiệu ứng chuyển đổi mượt */
+    cursor: pointer;
+}
+
+.utility-button:hover {
+    background-color: #e9ecef; /* Nền đậm hơn khi hover */
+    border-color: #adb5bd; /* Viền đậm hơn khi hover */
+    color: #333;        /* Chữ đậm hơn khi hover */
+}
+
+.utility-button:active {
+    background-color: #dee2e6; /* Nền khi nhấn nút */
+    border-color: #adb5bd;
+}
+
+/* CSS chung cho class message */
+.message {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 3px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.message.success {
+    background-color: #dff0d8;
+    color: #3c763d;
+    border: 1px solid #d6e9c6;
+}
+
+.message.error {
+    background-color: #f2dede;
+    color: #a94442;
+    border: 1px solid #ebccd1;
+}
+
+.message.info {
+    background-color: #d9edf7;
+    color: #31708f;
+    border: 1px solid #bce8f1;
+}
+
+.message.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    text-align: center;
+}         

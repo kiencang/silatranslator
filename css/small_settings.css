@@ -1,0 +1,194 @@
+/* 
+    Created on : May 8, 2025, 9:57:54 PM
+    Author     : A
+*/
+
+body {
+    margin: 20px;
+}
+
+.container {
+    margin: auto;
+    padding: 15px 25px 25px 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #495057;
+}
+
+input[type="number"], input[type="checkbox"], input[type="radio"] {
+    margin-bottom: 18px;
+}
+
+input[type="number"] {
+    width: 150px; /* Hoặc width: 100%; box-sizing: border-box; */
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    margin-right: 8px;
+    vertical-align: middle; /* Căn chỉnh checkbox/radio với label */
+}
+
+.checkbox-label, .radio-label {
+    display: inline-block; /* Để label nằm cạnh input */
+    margin-bottom: 18px; /* Giữ khoảng cách dưới */
+    font-weight: normal; /* Bỏ đậm cho label của input */
+    color: #495057;
+    cursor: pointer;
+}
+
+/* Điều chỉnh riêng cho radio label nếu cần */
+.radio-label {
+    margin-right: 15px; /* Khoảng cách giữa các lựa chọn radio */
+    margin-bottom: 0; /* Bỏ margin bottom vì đã có trong .browser-choice */
+}
+
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.setting-group {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.setting-group:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Điều chỉnh khoảng cách p trong group */
+.setting-group p {
+    font-size: 0.9em;
+    color: #6c757d;
+    margin-top: 5px; /* Giảm khoảng cách trên */
+    margin-bottom: 10px; /* Giảm khoảng cách dưới */
+}
+
+/* Khoảng cách p sau input chính */
+.setting-group > p {
+    margin-top: -10px; /* Kéo mô tả lên gần input hơn */
+    margin-bottom: 15px;
+}
+
+/* Kiểu cho nhóm chọn trình duyệt */
+.browser-choice {
+    margin-left: 25px; /* Thụt lề so với checkbox cha */
+    margin-top: -5px; /* Kéo lên gần checkbox cha */
+    margin-bottom: 15px; /* Khoảng cách dưới */
+    /* Sẽ được điều khiển bởi JavaScript */
+    /* display: none; */ /* Bỏ đi nếu dùng style inline */
+}
+
+.browser-choice label:first-of-type { /* Label "Chọn trình duyệt:" */
+    display: block;
+    margin-bottom: 5px;
+    font-weight: normal; /* Bỏ đậm */
+}
+
+.browser-choice input[type="radio"] {
+    margin-bottom: 0; /* Bỏ margin bottom của radio */
+}
+
+.browser-choice p {
+    margin-top: 8px; /* Khoảng cách trên cho mô tả trình duyệt */
+    margin-bottom: 0; /* Bỏ margin bottom cho mô tả trình duyệt */
+}
+
+.button-group {
+    margin-top: 20px; /* Khoảng cách phía trên nhóm nút */
+    gap: 10px; /* Khoảng cách giữa các nút */
+}
+
+/* CSS Sidebar không đổi */
+#sticky-left-sidebar {
+    position: fixed;
+    right: 0;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 55px;
+    background-color: rgba(200, 200, 200, 0.5);
+    padding: 10px 0;
+    border-radius: 0 8px 8px 0;
+    box-shadow: 2px 0px 8px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    transition: background-color 0.3s ease;
+}
+
+#sticky-left-sidebar:hover {
+    background-color: rgba(222, 226, 230, 0.8);
+}
+
+#sticky-left-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#sticky-left-sidebar li {
+    margin-bottom: 10px;
+}
+
+#sticky-left-sidebar li:last-child {
+    margin-bottom: 0;
+}
+
+#sticky-left-sidebar a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    background-color: #ffffff;
+    color: #495057;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 50%;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease-in-out;
+}
+
+#sticky-left-sidebar a:hover {
+    background-color: #e9ecef;
+    color: #212529;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#sticky-left-sidebar a:active {
+    transform: scale(1.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 850px) {
+    #sticky-left-sidebar {
+        display: none;
+    }
+}        
